@@ -2,15 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Test : MonoBehaviour
+public class TestTest
 {
-    // Start is called before the first frame update
-    void Start()
+    public TestTest()
     {
-        
+        MonoMgr.GetInstance().StartCoroutine(Test123()); // 通过MonoMgr开启协程
     }
 
-    // Update is called once per frame
+    IEnumerator Test123()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("123123123");
+    }
+    public void Update()
+    {
+        Debug.Log("TestTest");
+    }
+}
+
+public class Test : MonoBehaviour
+{
+    void Start()
+    {
+        TestTest t = new TestTest();
+        MonoMgr.GetInstance().AddUpdateListener(t.Update);
+    }
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
