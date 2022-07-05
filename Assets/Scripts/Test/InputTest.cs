@@ -10,10 +10,10 @@ public class InputTest : MonoBehaviour
         // 开启输入检测
         InputMgr.GetInstance().StartOrEndCheck(true); 
         // 添加事件监听 [玩家死亡的时候只需要移除监听,就不会再检测]
-        EventCenter.GetInstance().AddEventListener("某键按下", CheckInputDown);
-        EventCenter.GetInstance().AddEventListener("某键抬起", CheckInputUp);
+        EventCenter.GetInstance().AddEventListener<KeyCode>("某键按下", CheckInputDown);
+        EventCenter.GetInstance().AddEventListener<KeyCode>("某键抬起", CheckInputUp);
     }
-    private void CheckInputDown(object key)
+    private void CheckInputDown(KeyCode key)
     {
         KeyCode keyCode = (KeyCode)key;
         switch(keyCode)
@@ -33,7 +33,7 @@ public class InputTest : MonoBehaviour
         }
     }
 
-    private void CheckInputUp(object key)
+    private void CheckInputUp(KeyCode key)
     {
         KeyCode keyCode = (KeyCode)key;
         switch (keyCode)
