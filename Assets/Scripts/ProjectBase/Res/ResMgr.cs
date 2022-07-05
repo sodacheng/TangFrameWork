@@ -28,7 +28,7 @@ public class ResMgr : BaseManager<ResMgr>
     // 提供给外部异步加载的接口方法
     public void LoadAsync<T>(string name, UnityAction<T> callback) where T : Object
     {
-        MonoMgr.GetInstance().StartCoroutine(RellayLoadAsync<T>(name,callback));
+        MonoMgr.GetInstance().StartCoroutine(RellayLoadAsync(name,callback));
     }
 
     // 异步加载资源
