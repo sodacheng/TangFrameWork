@@ -31,11 +31,18 @@ public class Test : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            PoolMgr.GetInstance().GetObj("Test/Cube");
+            //PoolMgr.GetInstance().GetObj("Test/Cube");
+            // 同步加载
+            GameObject obj = ResMgr.GetInstance().Load<GameObject>("Test/Cube");
+            obj.transform.localScale = Vector3.one * 2;
         }
         if (Input.GetMouseButtonDown(1))
         {
-            PoolMgr.GetInstance().GetObj("Test/Sphere");
+            //PoolMgr.GetInstance().GetObj("Test/Sphere");
+            ResMgr.GetInstance().LoadAsync<GameObject>("Test/Cube", (obj) =>
+            {
+                obj.transform.localScale = Vector3.one * 2;
+            });
         }
     }
 }
