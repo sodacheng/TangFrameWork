@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -57,7 +57,7 @@ public class UIManager : BaseManager<UIManager>
     /// <returns></returns>
     public Transform GetLayerFather(E_UI_Layer layer)
     {
-        switch (layer)
+        switch(layer)
         {
             case E_UI_Layer.Bot:
                 return this.bot;
@@ -78,7 +78,7 @@ public class UIManager : BaseManager<UIManager>
     /// <param name="panelName">面板名</param>
     /// <param name="layer">显示在哪一层</param>
     /// <param name="callBack">当面板预设体创建成功后 你想做的事</param>
-    public void ShowPanel<T>(string panelName, E_UI_Layer layer = E_UI_Layer.Mid, UnityAction<T> callBack = null) where T : BasePanel
+    public void ShowPanel<T>(string panelName, E_UI_Layer layer = E_UI_Layer.Mid, UnityAction<T> callBack = null) where T:BasePanel
     {
         if (panelDic.ContainsKey(panelName))
         {
@@ -96,7 +96,7 @@ public class UIManager : BaseManager<UIManager>
             //并且 要设置它的相对位置
             //找到父对象 你到底显示在哪一层
             Transform father = bot;
-            switch (layer)
+            switch(layer)
             {
                 case E_UI_Layer.Mid:
                     father = mid;
@@ -136,7 +136,7 @@ public class UIManager : BaseManager<UIManager>
     /// <param name="panelName"></param>
     public void HidePanel(string panelName)
     {
-        if (panelDic.ContainsKey(panelName))
+        if(panelDic.ContainsKey(panelName))
         {
             panelDic[panelName].HideMe();
             GameObject.Destroy(panelDic[panelName].gameObject);
@@ -147,7 +147,7 @@ public class UIManager : BaseManager<UIManager>
     /// <summary>
     /// 得到某一个已经显示的面板 方便外部使用
     /// </summary>
-    public T GetPanel<T>(string name) where T : BasePanel
+    public T GetPanel<T>(string name) where T:BasePanel
     {
         if (panelDic.ContainsKey(name))
             return panelDic[name] as T;

@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// 空接口
-public interface IEventInfo { }
+
+public interface IEventInfo
+{
+
+}
 
 public class EventInfo<T> : IEventInfo
 {
     public UnityAction<T> actions;
 
-    public EventInfo(UnityAction<T> action)
+    public EventInfo( UnityAction<T> action)
     {
         actions += action;
     }
 }
 
-public class EventInfo: IEventInfo
+public class EventInfo : IEventInfo
 {
     public UnityAction actions;
 
@@ -26,36 +29,37 @@ public class EventInfo: IEventInfo
     }
 }
 
+
 /// <summary>
 /// 事件中心 单例模式对象
-/// 1. Dictionary
-/// 2. 委托
-/// 3. 观察者设计模式
-/// 4. 泛型
+/// 1.Dictionary
+/// 2.委托
+/// 3.观察者设计模式
+/// 4.泛型
 /// </summary>
 public class EventCenter : BaseManager<EventCenter>
 {
-    // key - 事件的名字(比如: 怪物死亡, 玩家死亡, 通关 等等)
-    // value - 对应的是 监听这个事件 对应的委托函数们
-    private Dictionary<string, IEventInfo> eventDic = new Dictionary<string, IEventInfo>(); // 利用里氏替换原则
+    //key —— 事件的名字（比如：怪物死亡，玩家死亡，通关 等等）
+    //value —— 对应的是 监听这个事件 对应的委托函数们
+    private Dictionary<string, IEventInfo> eventDic = new Dictionary<string, IEventInfo>();
 
     /// <summary>
     /// 添加事件监听
     /// </summary>
     /// <param name="name">事件的名字</param>
-    /// <param name="action">准备用来处理事件的委托函数</param>
+    /// <param name="action">准备用来处理事件 的委托函数</param>
     public void AddEventListener<T>(string name, UnityAction<T> action)
     {
-        // 有没有对应的事件监听
-        // 有的情况
-        if (eventDic.ContainsKey(name))
+        //有没有对应的事件监听
+        //有的情况
+        if( eventDic.ContainsKey(name) )
         {
             (eventDic[name] as EventInfo<T>).actions += action;
         }
-        // 没有的情况
+        //没有的情况
         else
         {
-            eventDic.Add(name, new EventInfo<T>(action));
+            eventDic.Add(name, new EventInfo<T>( action ));
         }
     }
 
@@ -66,18 +70,19 @@ public class EventCenter : BaseManager<EventCenter>
     /// <param name="action"></param>
     public void AddEventListener(string name, UnityAction action)
     {
-        // 有没有对应的事件监听
-        // 有的情况
+        //有没有对应的事件监听
+        //有的情况
         if (eventDic.ContainsKey(name))
         {
             (eventDic[name] as EventInfo).actions += action;
         }
-        // 没有的情况
+        //没有的情况
         else
         {
             eventDic.Add(name, new EventInfo(action));
         }
     }
+
 
     /// <summary>
     /// 移除对应的事件监听
@@ -104,38 +109,40 @@ public class EventCenter : BaseManager<EventCenter>
     /// <summary>
     /// 事件触发
     /// </summary>
-    /// <param name="name">哪一个名字的事件触发</param>
+    /// <param name="name">哪一个名字的事件触发了</param>
     public void EventTrigger<T>(string name, T info)
     {
+        //有没有对应的事件监听
+        //有的情况
         if (eventDic.ContainsKey(name))
         {
-            // 执行监听的所有函数
+            //eventDic[name]();
             if((eventDic[name] as EventInfo<T>).actions != null)
                 (eventDic[name] as EventInfo<T>).actions.Invoke(info);
             //eventDic[name].Invoke(info);
         }
-        // 不存在则什么都不用做
     }
 
     /// <summary>
-    /// 触发不需要参数的事件
+    /// 事件触发（不需要参数的）
     /// </summary>
     /// <param name="name"></param>
     public void EventTrigger(string name)
     {
+        //有没有对应的事件监听
+        //有的情况
         if (eventDic.ContainsKey(name))
         {
-            // 执行监听的所有函数
+            //eventDic[name]();
             if ((eventDic[name] as EventInfo).actions != null)
                 (eventDic[name] as EventInfo).actions.Invoke();
             //eventDic[name].Invoke(info);
         }
-        // 不存在则什么都不用做
     }
 
     /// <summary>
     /// 清空事件中心
-    /// 主要用于场景切换时
+    /// 主要用在 场景切换时
     /// </summary>
     public void Clear()
     {

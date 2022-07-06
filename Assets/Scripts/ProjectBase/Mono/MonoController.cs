@@ -1,24 +1,25 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
 /// Mono的管理者
-/// 1. 生命周期函数
-/// 2. 事件
-/// 3. 协程
+/// 1.声明周期函数
+/// 2.事件 
+/// 3.协程
 /// </summary>
-public class MonoController : MonoBehaviour
-{
+public class MonoController : MonoBehaviour {
+
     private event UnityAction updateEvent;
-    void Start()
-    {
+
+	// Use this for initialization
+	void Start () {
         DontDestroyOnLoad(this.gameObject);
-    }
-    
-    void Update()
-    {
+	}
+	
+	// Update is called once per frame
+	void Update () {
         if (updateEvent != null)
             updateEvent();
     }
@@ -33,7 +34,7 @@ public class MonoController : MonoBehaviour
     }
 
     /// <summary>
-    /// 提供给外部 移除帧更新事件函数
+    /// 提供给外部 用于移除帧更新事件函数
     /// </summary>
     /// <param name="fun"></param>
     public void RemoveUpdateListener(UnityAction fun)
