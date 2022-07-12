@@ -1,6 +1,7 @@
 # TangFrameWork
 [相关参考地址](https://www.taikr.com/course/1100)
-[我的笔记地址](https://www.yuque.com/books/share/0ca8f978-465d-4632-8c38-9ff95f248dda?# 《Unity程序基础框架》)
+
+[我的笔记地址](https://www.yuque.com/books/share/0ca8f978-465d-4632-8c38-9ff95f248dda)
 
 完成所有项目都有的公共模块
 - 为什么先做这些?
